@@ -1,0 +1,83 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Light background for better contrast */
+    color: #333; /* Default text color */
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50; /* Primary color */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Child Info Styles */
+div {
+    background-color: white; /* White background for each child card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding inside the card */
+    margin-bottom: 20px; /* Space between child cards */
+}
+
+/* Image Gallery Styles */
+.image-gallery {
+    display: flex; /* Use flexbox for image alignment */
+    gap: 10px; /* Space between images */
+    margin: 10px 0; /* Space above and below the image gallery */
+}
+
+.image-gallery img {
+    width: 150px; /* Fixed width for images */
+    height: 150px; /* Fixed height for images */
+    border-radius: 10px; /* Rounded corners for images */
+    object-fit: cover; /* Ensure images cover the area */
+}
+
+/* Form Styles */
+form {
+    margin-top: 15px; /* Space above the form */
+}
+
+form label {
+    display: block; /* Each label on a new line */
+    margin: 10px 0 5px; /* Space around the label */
+}
+
+form input[type="number"],
+form select {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s; /* Transition for focus effect */
+}
+
+form input[type="number"]:focus,
+form select:focus {
+    border-color: #4CAF50; /* Change border color on focus */
+}
+
+button {
+    background-color: #4CAF50; /* Primary color */
+    color: white; /* Text color for the button */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    margin-top: 10px; /* Space above the button */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+
+/* No children available styles */
+p {
+    text-align: center; /* Center text for no children message */
+    font-size: 18px; /* Slightly larger font for visibility */
+    color: #555; /* Lighter text color */
+}

@@ -1,0 +1,7 @@
+.profile-picture {
+    margin-bottom: 20px;
+}
+.profile-picture img {
+    border-radius: 50%;
+    border: 2px solid #ccc; /* Optional border for aesthetics */
+}

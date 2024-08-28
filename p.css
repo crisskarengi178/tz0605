@@ -1,0 +1,32 @@
+body{
+    background-image: url('topsphere-media-dpmEl59lvAY-unsplash.jpg');
+    background-size: 1500px;
+    background-color: blue black;
+    color:rgb(0, 0, 0);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    width: 50px;
+    
+}
+header{
+    color: aliceblue;
+    font-size: 34px;
+    font-family:sans-serif;
+    justify-content:center;
+}
+p{
+    text-align: center;
+}
+table th {
+background-color: aliceblue;
+padding: 60px;
+margin: 40px;
+width:100;
+line-height :50%;
+}
+table td{
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 60px;
+    position:relative;
+}
