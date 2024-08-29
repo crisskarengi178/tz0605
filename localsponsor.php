@@ -2,15 +2,47 @@
 session_start();
 include('conekt.php');
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: user_login.php");
-    exit();
+// Initialize filters
+$gender_filter = isset($_GET['gender']) ? $_GET['gender'] : '';
+$street_filter = isset($_GET['street']) ? $_GET['street'] : 'Any';
+$hobby_filter = isset($_GET['hobby']) ? $_GET['hobby'] : '';
+
+// Build the SQL query with filters
+$sql = "SELECT * FROM children WHERE 1=1"; // Start with a basic query
+
+if ($gender_filter) {
+    $sql .= " AND gender = ?";
+}
+if ($street_filter && $street_filter !== 'Any') {
+    $sql .= " AND street = ?";
+}
+if ($hobby_filter) {
+    $sql .= " AND hobby = ?";
 }
 
-// Fetch children available for sponsorship
-$sql = "SELECT id, name, age, description FROM children";
-$result = $conn_users->query($sql);
+$stmt = $conn_users->prepare($sql);
+$bind_params = [];
+$param_types = 's'; // Initialize with the first parameter type
+
+if ($gender_filter) {
+    $bind_params[] = $gender_filter;
+}
+if ($street_filter && $street_filter !== 'Any') {
+    $param_types .= 's';
+    $bind_params[] = $street_filter;
+}
+if ($hobby_filter) {
+    $param_types .= 's';
+    $bind_params[] = $hobby_filter;
+}
+
+if ($bind_params) {
+    $stmt->bind_param($param_types, ...$bind_params);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -18,72 +50,99 @@ $result = $conn_users->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sponsorship - Choose a Child</title>
-    <link rel="stylesheet" href="r.css">
+    <title>Choose a Child</title>
+    <link rel="stylesheet" href="z.css">
 </head>
 <body>
     <h1>Choose a Child for Sponsorship</h1>
+    <form action="" method="get">
+        <div class="row">
+            <div class="gender1">
+                <p class="sponsor">I want to sponsor a:</p>
+                <div class="gender3">
+                    <label><input type="radio" name="gender" value="Boy" <?= $gender_filter === 'Boy' ? 'checked' : '' ?>> Boy</label>
+                    <label><input type="radio" name="gender" value="Girl" <?= $gender_filter === 'Girl' ? 'checked' : '' ?>> Girl</label>
+                    <br>
+                    <label><input type="radio" name="gender" value="" <?= !$gender_filter ? 'checked' : '' ?>> Either</label>
+                </div>
+            </div>
 
+            <div class="places">
+                <p class="sponsor1">Who comes from:</p>
+                <select name="street">
+                    <option value="Any">All Streets</option>
+                    <option value="lemara" <?= $street_filter === 'lemara' ? 'selected' : '' ?>>Lemara</option>
+                    <option value="daraja_mbili" <?= $street_filter === 'daraja_mbili' ? 'selected' : '' ?>>Daraja Mbili</option>
+                    <option value="sokoni_one" <?= $street_filter === 'sokoni_one' ? 'selected' : '' ?>>Sokoni One</option>
+                    <option value="mjini_kati" <?= $street_filter === 'mjini_kati' ? 'selected' : '' ?>>Mjini Kati</option>
+                    <option value="njiro" <?= $street_filter === 'njiro' ? 'selected' : '' ?>>Njiro</option>
+                    <option value="kijenge" <?= $street_filter === 'kijenge' ? 'selected' : '' ?>>Kijenge</option>
+                    <option value="moshono" <?= $street_filter === 'moshono' ? 'selected' : '' ?>>Moshono</option>
+                    <option value="uzunguni" <?= $street_filter === 'uzunguni' ? 'selected' : '' ?>>Uzunguni</option>
+                </select>
+            </div>
+
+            <div class="places">
+                <p class="sponsor1">With Hobby:</p>
+                <select name="hobby">
+                    <option value="">All Hobbies</option>
+                    <option value="Music" <?= $hobby_filter === 'Music' ? 'selected' : '' ?>>Music</option>
+                    <option value="Dancing" <?= $hobby_filter === 'Dancing' ? 'selected' : '' ?>>Dancing</option>
+                    <option value="Cooking & Baking" <?= $hobby_filter === 'Cooking & Baking' ? 'selected' : '' ?>>Cooking & Baking</option>
+                    <option value="Swimming" <?= $hobby_filter === 'Swimming' ? 'selected' : '' ?>>Swimming</option>
+                    <option value="Drawing" <?= $hobby_filter === 'Drawing' ? 'selected' : '' ?>>Drawing</option>
+                    <option value="Sports" <?= $hobby_filter === 'Sports' ? 'selected' : '' ?>>Sports</option>
+                    <option value="Reading" <?= $hobby_filter === 'Reading' ? 'selected' : '' ?>>Reading</option>
+                    <option value="Gardening" <?= $hobby_filter === 'Gardening' ? 'selected' : '' ?>>Gardening</option>
+                    <option value="Computer" <?= $hobby_filter === 'Computer' ? 'selected' : '' ?>>Computer</option>
+                    <option value="Photography" <?= $hobby_filter === 'Photography' ? 'selected' : '' ?>>Photography</option>
+                    <option value="Writing" <?= $hobby_filter === 'Writing' ? 'selected' : '' ?>>Writing</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit">Filter</button>
+    </form>
+
+    <h2>Available Children</h2>
     <div>
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $child_id = $row['id'];
-                echo '<div>';
-                echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                echo '<p>Age: ' . htmlspecialchars($row['age']) . '</p>';
-                echo '<p>Description: ' . htmlspecialchars($row['description']) . '</p>';
-                
-                // Fetch images for this child
-                $image_sql = "SELECT image_url FROM child_images WHERE child_id = ?";
-                $stmt = $conn_users->prepare($image_sql);
-                $stmt->bind_param("i", $child_id);
-                $stmt->execute();
-                $image_result = $stmt->get_result();
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'GET' && $result !== null): ?>
+            <?php if ($result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <div>
+                        <h3><?= htmlspecialchars($row['name']) ?></h3>
+                        <p>Age: <?= htmlspecialchars($row['age']) ?></p>
+                        <p>Description: <?= htmlspecialchars($row['description']) ?></p>
+                        
+                        <!-- Fetch images for this child -->
+                        <?php
+                        $image_sql = "SELECT image_url FROM child_images WHERE child_id = ?";
+                        $stmt = $conn_users->prepare($image_sql);
+                        $child_id = $row['id'];
+                        $stmt->bind_param('i', $child_id);
+                        $stmt->execute();
+                        $image_result = $stmt->get_result();
+                        ?>
 
-                if ($image_result->num_rows > 0) {
-                    echo '<div class="image-gallery">';
-                    while ($image_row = $image_result->fetch_assoc()) {
-                        echo '<img src="uploads/' . htmlspecialchars($image_row['image_url']) . '" alt="' . htmlspecialchars($row['name']) . '" style="width:150px;height:150px;border-radius:10px;">';
-                    }
-                    echo '</div>';
-                } else {
-                    echo '<p>No images available.</p>';
-                }
+                        <?php if ($image_result->num_rows > 0): ?>
+                            <div class="child-images">
+                                <?php while ($image_row = $image_result->fetch_assoc()): ?>
+                                    <div class="child-image">
+                                        <img src="uploads/<?= htmlspecialchars($image_row['image_url']) ?>" alt="Child Image" width="100" height="100">
+                                    </div>
+                                <?php endwhile; ?>
+                            </div>
+                        <?php else: ?>
+                            <p>No images available for this child.</p>
+                        <?php endif; ?>
 
-                // Check if the user has already registered as a sponsor
-                $sponsor_check_sql = "SELECT * FROM sponsors WHERE id = ?";
-                $sponsor_stmt = $conn_users->prepare($sponsor_check_sql);
-                $sponsor_stmt->bind_param("i", $_SESSION['user_id']);
-                $sponsor_stmt->execute();
-                $sponsor_result = $sponsor_stmt->get_result();
-
-                if ($sponsor_result->num_rows > 0) {
-                    // If the user is already registered, show the sponsorship form
-                    echo '<form action="sponsorship_process.php" method="post">';
-                    echo '<input type="hidden" name="child_id" value="' . $child_id . '">';
-                    echo '<label for="amount">Sponsorship Amount (at least $5): </label>';
-                    echo '<input type="number" name="amount" min="5" step="0.01" required>';
-                    echo '<label for="payment_method">Payment Method:</label>';
-                    echo '<select name="payment_method" required>';
-                    echo '<option value="Credit Card">Credit Card</option>';
-                    echo '<option value="PayPal">PayPal</option>';
-                    echo '<option value="Bank Transfer">Bank Transfer</option>';
-                    echo '</select>';
-                    echo '<button type="submit">Sponsor This Child</button>';
-                    echo '</form>';
-                } else {
-                    // If not registered, show link to register
-                    echo '<a href="register_sponsor.php?child_id=' . $child_id . '">Sponsor This Child</a>';
-                }
-
-                echo '</div><hr>';
-            }
-        } else {
-            echo '<p>No children available for sponsorship.</p>';
-        }
-        ?>
+                        <a href="sponsor_child.php?child_id=<?= $row['id'] ?>">Sponsor</a>
+                    </div>
+                    <hr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No children found based on your filters.</p>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
-
 </body>
 </html>

@@ -1,0 +1,216 @@
+:root {
+    /* Colors */
+    --white: #ffffff;
+    --green: #333d29;
+    --coffee: #43281c;
+    --vanilla: #f1e3d3;
+    --lemon: #fbf2c0;
+    --mocha: #7f4f24;
+    --tan: #ddb892;
+    --blue: #3e80b6;
+
+    /* Fonts */
+    --decorative: "Montserrat", sans-serif;
+    --sans: "Open Sans", sans-serif;
+
+    /* Font Scale */
+    --base-size: 1.2rem;
+    --scale: 1.25;
+    --xl: calc(var(--h1) * var(--scale) * var(--scale)); /* 7.15rem */
+    --lg: calc(var(--h1) * var(--scale)); /* 4.575rem */
+    --h1: calc(var(--h2) * var(--scale)); /* 3.66rem */
+    --h2: calc(var(--h3) * var(--scale)); /* 2.93rem */
+    --h3: calc(var(--h4) * var(--scale)); /* 2.34rem */
+    --h4: calc(var(--h5) * var(--scale)); /* 1.875rem */
+    --h5: calc(var(--h6) * var(--scale)); /* 1.5rem */
+    --h6: var(--base-size); /* 1.2rem */
+    --small: calc(var(--base-size) / var(--scale)); /* 0.96rem */
+
+    /* Other Variables */
+    --radius: 5px;
+}
+
+/* General Styles */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    text-align: left;
+    max-width: fit-content;
+    margin: 10px 30px 30px; 
+}
+h1 {
+    text-align: center;
+}
+.citation {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Sponsor Styles */
+.sponsor, .sponsor1 {
+    padding-bottom: 10px;
+    color: grey;
+    font-weight: lighter;
+}
+
+/* Gender Selection */
+.gender {
+    padding: 15px;
+    border: 1px solid var(--blue);
+    border-radius: 15px;
+    color: var(--blue);
+    width: 60px;
+}
+.gender2 {
+    padding: 15px;
+    border: 1px solid var(--blue);
+    border-radius: 15px;
+    color: var(--white);
+    background-color: var(--blue);
+    width: 65px;
+}
+.gender3 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+/* Row and Grid Layouts */
+.row, .birth, .hobby, .children, .grouping {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+}
+.row {
+    padding: 20px;
+}
+.grouping {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+/* Image Styles */
+.image, .image1 {
+    height: 50px;
+    position: relative;
+}
+.kidImage {
+    position: relative; 
+    width: 300px; 
+}
+.tanzania {
+    max-width: 20px;
+    max-height: 20px;
+}
+figcaption {
+    position: absolute;
+    top: 5px;
+    right: 175px;
+    width: 150px;
+    background-color: white;
+    color: grey;
+    padding: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+/* Select Styles */
+select {
+    color: var(--blue);
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid var(--blue);
+    border-radius: 12px;
+    height: 40px;
+    width: 150px;
+    cursor: pointer;
+}
+
+/* Gift Styles */
+.gift, .hobby1 {
+    position: relative;
+    top: 10px;
+    padding: 5px;
+    border: 1px solid var(--blue);
+    border-radius: 50%;
+    margin-left: 200px;
+}
+
+/* Child Styles */
+.children {
+    gap: 5px;
+    padding-bottom: 30px;
+}
+.child1 {
+    margin-right: 15px;
+}
+
+/* Group Text Styles */
+.group {
+    color: grey;
+    font-weight: lighter;
+}
+.word {
+    color: var(--blue);
+    font-weight: lighter;
+}
+
+/* Light Background */
+.light {
+    padding-top: 15px;
+    background-color: #dbeef5;
+    border-radius: 5px;
+}
+
+/* Initial Styles */
+.initial {
+    background-color: var(--blue);
+    color: white;
+    font-size: medium;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: lighter;
+    padding: 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Selection Styles */
+.selection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 295px;  
+    background-color: white;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    align-items: center;
+    justify-content: center; 
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Bottom Margin */
+.bottom {
+    padding-top: 275px;
+}
+
+/* Button Hover Effects */
+button:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+a:hover {
+    color: var(--green);
+}
