@@ -46,7 +46,7 @@
                 
                 <!-- Dropdown Menu for Sponsor -->
                 <div class="dropdown">
-                <a href="sponsor_child.php" class="sponsor-button">Sponsor a Child</a>
+                <a href="#" class="sponsor-button">Sponsor a Child</a>
                     <div class="dropdown-content">
                         <a href="localsponsor.php">Local Sponsor</a>
                         <a href="internationalsponsor.php">International Sponsor</a>
