@@ -1,0 +1,197 @@
+body{
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 5px;
+    max-width: 1000px;
+}
+  .registration{
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    padding-bottom: 20px;
+}  
+.credentials{
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    padding-bottom: 20px;
+}
+.status1{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.contact1{
+    display: grid;
+    grid-template-columns: repeat(2,1fr); 
+}
+.location1{
+    display: grid;
+    grid-template-columns: repeat(2,1fr); 
+}
+.location2{
+    display: grid;
+    grid-template-columns: repeat(3,1fr); 
+}
+.house1{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);  
+}
+.guarantor1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr); 
+}
+ input{
+    border-radius: 5px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid grey;
+ }
+ select{
+    border-radius: 5px;
+    border: 1px solid grey;
+    font-family: 'Courier New', Courier, monospace;
+ }
+ label{
+    /* color: black; */
+     color: grey;
+    /* color: skyblue;  */
+    font-family: 'Courier New', Courier, monospace;
+ }
+ h1{
+    text-align: center;
+    padding: 30px;
+    background-color:lightskyblue;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', Courier, monospace;
+ }
+ h3{
+    margin-left: 20px;
+ }
+ h2{
+    text-align: center;
+    padding: 30px;
+    background-color: lightskyblue;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', Courier, monospace;
+ }
+.name{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.gender{
+    padding: 20px;
+}
+.status{
+    padding: 20px;
+}
+.email{
+padding: 20px;
+display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.contact{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.region{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.district{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.ward{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.village{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.street{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.postcode{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.house{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.nida{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.guarantor{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.location{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.gcontact{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.picture{
+    padding: 20px;
+}
+.button{
+    padding: 10px;
+    background-color: lightskyblue;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid lightskyblue;
+    box-shadow: 1px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 20px;
+}
+.payment{
+    padding: 20px;
+}
+
+.account{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.accname{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.amount{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr) ;
+}
+.button2{
+    padding: 10px;
+    background-color: lightskyblue;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid lightskyblue;
+    box-shadow: 1px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 20px;
+}
+

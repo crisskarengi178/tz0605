@@ -1,92 +1,3 @@
-<?php
-// Database connection
-include("conekt.php");
-session_start(); // Start session to manage user state
-
-// Initialize variables
-$sponsor_id = null;
-$profile_picture = '';
-
-// Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
-    // Basic Information
-    $full_name = mysqli_real_escape_string($conn_users, $_POST['full_name']);
-    $gender = mysqli_real_escape_string($conn_users, $_POST['gender']);
-    $marital_status = mysqli_real_escape_string($conn_users, $_POST['marital_status']);
-    $email = mysqli_real_escape_string($conn_users, $_POST['email']);
-    $contact = mysqli_real_escape_string($conn_users, $_POST['contact']);
-    
-    // Demographic Information
-    $region_of_residency = mysqli_real_escape_string($conn_users, $_POST['region_of_residency']);
-    $district_of_residency = mysqli_real_escape_string($conn_users, $_POST['district_of_residency']);
-    $ward = mysqli_real_escape_string($conn_users, $_POST['ward']);
-    $village = mysqli_real_escape_string($conn_users, $_POST['village']);
-    $street = mysqli_real_escape_string($conn_users, $_POST['street']);
-    $postcode = mysqli_real_escape_string($conn_users, $_POST['postcode']);
-    $house_no = mysqli_real_escape_string($conn_users, $_POST['house_no']);
-    $nida = mysqli_real_escape_string($conn_users, $_POST['nida']);
-    
-    // Next of Kin
-    $guarantor_name = mysqli_real_escape_string($conn_users, $_POST['guarantor_name']);
-    $guarantor_location = mysqli_real_escape_string($conn_users, $_POST['guarantor_location']);
-    $guarantor_contact = mysqli_real_escape_string($conn_users, $_POST['guarantor_contact']);
-    
-    // Profile Picture Upload
-    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == UPLOAD_ERR_OK) {
-        $upload_dir = 'uploads/'; // Directory to save uploaded files
-        $file_name = basename($_FILES['profile_picture']['name']);
-        $profile_picture = $upload_dir . $file_name;
-        $file_type = strtolower(pathinfo($profile_picture, PATHINFO_EXTENSION));
-        
-        // Allowed file types
-        $allowed_types = array('jpg', 'jpeg', 'gif', 'png');
-
-        // Check if file type is allowed and size is appropriate
-        if (in_array($file_type, $allowed_types) && $_FILES['profile_picture']['size'] <= 2000000) { // Max 2MB
-            // Move the uploaded file to the specified directory
-            if (!move_uploaded_file($_FILES['profile_picture']['tmp_name'], $profile_picture)) {
-                echo "Error uploading file.";
-                exit();
-            }
-        } else {
-            echo "Error: Only JPG, GIF, and PNG files are allowed, and the file size must be less than 2MB.";
-            exit();
-        }
-    }
-
-    // Insert into sponsors table using prepared statements
-    $stmt = $conn_users->prepare("INSERT INTO sponsor_1 (full_name, gender, marital_status, email, contact, region_of_residency, district_of_residency, ward, village, street, postcode, house_no, nida, guarantor_name, guarantor_location, guarantor_contact, profile_picture) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssssssss", $full_name, $gender, $marital_status, $email, $contact, $region_of_residency, $district_of_residency, $ward, $village, $street, $postcode, $house_no, $nida, $guarantor_name, $guarantor_location, $guarantor_contact, $profile_picture);
-    
-    if ($stmt->execute()) {
-        $sponsor_id = $stmt->insert_id; // Get the sponsor ID
-        $_SESSION['sponsor_id'] = $sponsor_id; // Store sponsor_id in session
-        echo "<p>Registration successful. Please continue to the payment method.</p>";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-}
-
-// Handle payment method submission
-if (isset($_POST['submit_payment']) && isset($_SESSION['sponsor_id'])) {
-    $method = mysqli_real_escape_string($conn_users, $_POST['method']);
-    $account_number = mysqli_real_escape_string($conn_users, $_POST['account_number']);
-    $account_holder_name = mysqli_real_escape_string($conn_users, $_POST['account_holder_name']);
-    $amount = $_POST['amount'];
-
-    // Prepare and bind
-    $stmt = $conn_users->prepare("INSERT INTO payment_methods (sponsor_id, method, account_number, account_holder_name, amount) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssd", $_SESSION['sponsor_id'], $method, $account_number, $account_holder_name, $amount);
-    
-    if ($stmt->execute()) {
-        $success_message = "Payment method and amount have been successfully submitted.";
-    } else {
-        $error_message = "Error: " . $stmt->error;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,11 +25,11 @@ if (isset($_POST['submit_payment']) && isset($_SESSION['sponsor_id'])) {
 <body>
     <h1>Sponsor Registration</h1>
 
-    <?php if ($sponsor_id): ?>
+    <!-- <?php if ($sponsor_id): ?>
         <div class="profile-pic">
             <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture">
         </div>
-    <?php endif; ?> 
+    <?php endif; ?> -->
     <h3>Basic information of Sponsor</h3>
 <div class="registration">
     <form action="" method="post" enctype="multipart/form-data">
@@ -217,7 +128,7 @@ if (isset($_POST['submit_payment']) && isset($_SESSION['sponsor_id'])) {
         <button type="submit" name="register" class="button">Register</button>
     </form>
 </div>
-     <?php if ($sponsor_id): ?> 
+    <!-- <?php if ($sponsor_id): ?> -->
      <div class="credentials">
         <h2>Payment Method</h2>
         <form action="" method="post">
@@ -246,12 +157,12 @@ if (isset($_POST['submit_payment']) && isset($_SESSION['sponsor_id'])) {
         
         </form>
     </div>
-     <?php endif; ?>
+    <!-- <?php endif; ?>
 
     <?php if (isset($success_message)): ?>
         <p><?php echo $success_message; ?></p>
     <?php elseif (isset($error_message)): ?>
         <p><?php echo $error_message; ?></p>
-    <?php endif; ?> 
+    <?php endif; ?> -->
 </body>
 </html>
