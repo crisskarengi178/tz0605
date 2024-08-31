@@ -45,6 +45,7 @@ $stmt->close();
             <li><a href="leader_upload.php">Upload Child for Sponsorship</a></li>
             <li><a href="view_children.php">View Sponsored Children</a></li>
             <li><a href="view_health.php">health assessment details</a></li>
+            <li><a href="view_letter.php">view letter uploaded by sponsor</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
